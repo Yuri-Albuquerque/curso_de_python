@@ -70,8 +70,6 @@ curso_de_python/
 - **Python for Data Analysis** — Wes McKinney (O'Reilly, 2012)
 - **Machine Learning for Algorithmic Trading**, 2ª ed. — Stefan Jansen (Packt, 2020)
 
-As três obras estão extraídas em Markdown em `kb/` (um arquivo por capítulo) e são
-citadas aula a aula nas apostilas, com o capítulo exato para aprofundamento.
 
 ## Dados (data/csv/)
 
