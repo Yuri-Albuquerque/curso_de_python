@@ -1,0 +1,21 @@
+# --- Ambiente virtual do curso ---
+.venv_oikos/
+
+# --- PDFs dos livros-base (copyright; a KB extraída está em kb/) ---
+Python Data Science Handbook Essential Tools for Working with Data (Jake VanderPlas) (z-lib.org).pdf
+Stefan Jansen - Machine Learning for Algorithmic Trading_ Predictive models to extract signals from market and alternative data for systematic trading strategies with Python, 2nd Edition-Packt Publish.pdf
+Wes McKinney - Python for Data Analysis (2012, O'Reilly Media) - libgen.lc.pdf
+
+# --- KB: extração markdown dos livros (regenerável via extract_pdf_md.py) ---
+kb/
+
+# --- Referências internas de geração/validação (contrato do agente) ---
+references/
+
+# --- Python / Jupyter (boas práticas) ---
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# --- macOS ---
+.DS_Store

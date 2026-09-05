@@ -1,0 +1,15 @@
+# Python para Economistas — OIKOS/UEG
+# Ambiente: kernel "oikos_py" (Python >= 3.10, gerado com 3.11)
+# Instalação: pip install -r requirements.txt
+numpy>=1.26
+pandas>=2.2
+matplotlib>=3.8
+seaborn>=0.13
+scikit-learn>=1.4
+yfinance>=0.2.40
+openpyxl>=3.1
+jupyterlab>=4.0
+ipykernel>=6.29
+nbformat>=5.9
+nbconvert>=7.0
+requests>=2.31
