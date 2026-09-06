@@ -1,0 +1,33 @@
+import type { Lesson } from '@/types';
+
+export const lesson: Lesson = {
+  id: 'dados-indexacao-fatiamento', trackId: 'estruturas-dados',
+  title: 'Indexação e fatiamento',
+  description: 'Acessando elementos e sublistas com slices.',
+  difficulty: 2, xp: 15, estimatedMinutes: 7,
+  prerequisites: ['dados-conjuntos'],
+  steps: [
+    { id: 's1', type: 'explanation',
+      content: 'Acesse elementos por índice (0-based). Índices negativos contam do final. **Slicing**: `lista[início:fim]` (fim exclusivo).',
+      codeExample: 'precos = [10, 20, 30, 40, 50]\nprecos[0]    # 10\nprecos[-1]   # 50\nprecos[1:3]  # [20, 30]\nprecos[:2]   # [10, 20]\nprecos[2:]   # [30, 40, 50]' },
+    { id: 's2', type: 'explanation',
+      content: 'Slice com passo: `lista[início:fim:passo]`. Passo negativo inverte a lista.',
+      codeExample: 'precos = [10, 20, 30, 40, 50]\nprecos[::2]   # [10, 30, 50]\nprecos[::-1]  # [50, 40, 30, 20, 10]' },
+    { id: 's3', type: 'predict-output',
+      prompt: 'Qual é o resultado?', code: 'precos = [10, 20, 30, 40, 50]\nprecos[1:4]',
+      expectedOutput: '[20, 30, 40]', hint: 'Índice 1 até 3 (4 é exclusivo).' },
+    { id: 's4', type: 'quiz',
+      question: 'O que lista[::-1] faz?',
+      options: ['Remove o último', 'Inverte a lista', 'Pega o primeiro', 'Dobra a lista'], answer: 1,
+      explanation: 'Slice com passo -1 inverte a ordem.' },
+    { id: 's5', type: 'fill-blank',
+      prompt: 'Complete para obter os 3 primeiros elementos.',
+      codeTemplate: 'precos = [10, 20, 30, 40, 50]\ntres_primeiros = precos[___]',
+      blanks: [':3'], hint: 'Omitir o início significa começar do 0.' },
+    { id: 's6', type: 'code',
+      prompt: 'Extraia os preços do 2º ao 4º produto (índices 1, 2, 3).',
+      starterCode: 'precos = [10.5, 20.0, 15.0, 30.0, 25.0]\nsub = ',
+      tests: [{ expression: 'sub', expected: [20.0, 15.0, 30.0] }],
+      hint: 'Use precos[1:4]' },
+  ],
+};

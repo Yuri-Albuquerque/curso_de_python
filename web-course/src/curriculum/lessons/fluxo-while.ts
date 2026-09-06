@@ -1,0 +1,30 @@
+import type { Lesson } from '@/types';
+
+export const lesson: Lesson = {
+  id: 'fluxo-while', trackId: 'fluxo',
+  title: 'Laços while',
+  description: 'Repetição enquanto uma condição for verdadeira.',
+  difficulty: 2, xp: 15, estimatedMinutes: 7,
+  prerequisites: ['fluxo-for'],
+  steps: [
+    { id: 's1', type: 'explanation',
+      content: 'O laço `while` repete um bloco **enquanto** uma condição for True. Cuidado: se a condição nunca ficar False, o laço é infinito!',
+      codeExample: 'saldo = 100\nwhile saldo > 0:\n    saldo -= 25\n    print(f\"Saldo: R$ {saldo}\")\n# Para quando saldo <= 0' },
+    { id: 's2', type: 'explanation',
+      content: 'É comum usar `while` quando não sabemos quantas iterações são necessárias, mas sabemos a condição de parada.',
+      codeExample: '# Calcular quantos anos para dobrar o capital\ncapital = 1000\ntaxa = 0.07\nanos = 0\nwhile capital < 2000:\n    capital *= (1 + taxa)\n    anos += 1\nprint(anos)  # 11' },
+    { id: 's3', type: 'predict-output',
+      prompt: 'O que o código imprime?', code: 'n = 5\nwhile n > 0:\n    print(n)\n    n -= 1',
+      expectedOutput: '5\n4\n3\n2\n1', hint: 'O while executa enquanto n > 0.' },
+    { id: 's4', type: 'fix-bug',
+      prompt: 'Corrija o laço infinito.',
+      buggyCode: 'contador = 0\nwhile contador < 5:\n    print(contador)',
+      tests: [],
+      hint: 'Falta incrementar o contador dentro do laço.' },
+    { id: 's5', type: 'code',
+      prompt: 'Use while para contar quantos meses até o saldo zerar com saques de 200.',
+      starterCode: 'saldo = 1000\nmeses = 0\n',
+      tests: [{ expression: 'meses', expected: 5 }],
+      hint: 'while saldo > 0: saldo -= 200; meses += 1' },
+  ],
+};

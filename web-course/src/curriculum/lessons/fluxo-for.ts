@@ -1,0 +1,32 @@
+import type { Lesson } from '@/types';
+
+export const lesson: Lesson = {
+  id: 'fluxo-for', trackId: 'fluxo',
+  title: 'Laços for',
+  description: 'Iteração sobre sequências com for.',
+  difficulty: 2, xp: 15, estimatedMinutes: 8,
+  prerequisites: ['fluxo-operadores-logicos'],
+  steps: [
+    { id: 's1', type: 'explanation',
+      content: 'O laço `for` percorre cada elemento de uma sequência (lista, string, range, etc.). A sintaxe é `for elemento in sequência:`.',
+      codeExample: 'precos = [10, 20, 30, 40]\nfor preco in precos:\n    print(preco * 2)\n# 20, 40, 60, 80' },
+    { id: 's2', type: 'explanation',
+      content: 'A função `range(n)` gera números de 0 a n-1. `range(a, b)` gera de a até b-1. `range(a, b, step)` usa um passo.',
+      codeExample: 'for i in range(5):\n    print(i)  # 0 1 2 3 4\n\nfor i in range(2, 8):\n    print(i)  # 2 3 4 5 6 7' },
+    { id: 's3', type: 'predict-output',
+      prompt: 'O que o código imprime?', code: 'for i in range(0, 10, 2):\n    print(i)',
+      expectedOutput: '0\n2\n4\n6\n8', hint: 'range(0, 10, 2) vai de 0 a 8 com passo 2.' },
+    { id: 's4', type: 'quiz',
+      question: 'Quantos valores range(1, 5) gera?',
+      options: ['3', '4', '5', '6'], answer: 1,
+      explanation: 'range(1, 5) gera 1, 2, 3, 4 — exclui o valor final.' },
+    { id: 's5', type: 'code',
+      prompt: 'Some todos os preços da lista usando um laço for.',
+      starterCode: 'precos = [10.5, 20.0, 15.0, 30.0]\ntotal = 0\nfor ',
+      tests: [{ expression: 'total', expected: 75.5 }],
+      hint: 'for preco in precos: total += preco' },
+    { id: 's6', type: 'explanation',
+      content: 'Você pode usar `enumerate()` para obter o índice e o valor ao mesmo tempo.',
+      codeExample: 'for i, preco in enumerate([10, 20, 30]):\n    print(f\"Produto {i}: R$ {preco}\")' },
+  ],
+};

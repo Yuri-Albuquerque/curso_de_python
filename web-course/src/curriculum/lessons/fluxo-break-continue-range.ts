@@ -1,0 +1,30 @@
+import type { Lesson } from '@/types';
+
+export const lesson: Lesson = {
+  id: 'fluxo-break-continue-range', trackId: 'fluxo',
+  title: 'break, continue e range',
+  description: 'Controle de fluxo dentro de laços.',
+  difficulty: 2, xp: 15, estimatedMinutes: 7,
+  prerequisites: ['fluxo-while'],
+  steps: [
+    { id: 's1', type: 'explanation',
+      content: '- `break`: interrompe o laço imediatamente\n- `continue`: pula para a próxima iteração\n- `range(start, stop, step)`: gera sequências de números',
+      codeExample: 'for i in range(10):\n    if i == 5:\n        break\n    print(i)  # 0 1 2 3 4\n\nfor i in range(5):\n    if i == 2:\n        continue\n    print(i)  # 0 1 3 4' },
+    { id: 's2', type: 'predict-output',
+      prompt: 'O que o código imprime?', code: 'for i in range(6):\n    if i % 2 == 0:\n        continue\n    print(i)',
+      expectedOutput: '1\n3\n5', hint: 'continue pula os números pares.' },
+    { id: 's3', type: 'quiz',
+      question: 'O que break faz?',
+      options: ['Pula a iteração atual', 'Interrompe o laço completamente', 'Reinicia o laço', 'Pula para o próximo elemento'],
+      answer: 1, explanation: 'break sai do laço imediatamente.' },
+    { id: 's4', type: 'order-lines',
+      prompt: 'Reordene para encontrar o primeiro preço acima de 50 e parar.',
+      lines: ['precos = [20, 35, 60, 80]', 'for preco in precos:', '    if preco > 50:', '        print(preco)', '        break'],
+      hint: 'O break deve estar dentro do if.' },
+    { id: 's5', type: 'code',
+      prompt: 'Some apenas os números ímpares de 1 a 9 usando continue para pular os pares.',
+      starterCode: 'total = 0\nfor i in range(1, 10):\n',
+      tests: [{ expression: 'total', expected: 25 }],
+      hint: 'if i % 2 == 0: continue. Depois total += i' },
+  ],
+};

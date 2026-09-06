@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <rect width="100" height="100" rx="22" fill="#0F4C5C"/>
+  <text x="50" y="68" font-family="monospace" font-size="52" font-weight="bold" fill="#5FFBD6" text-anchor="middle">Py</text>
+  <circle cx="78" cy="28" r="8" fill="#FFB400"/>
+</svg>

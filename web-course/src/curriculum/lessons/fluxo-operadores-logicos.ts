@@ -1,0 +1,33 @@
+import type { Lesson } from '@/types';
+
+export const lesson: Lesson = {
+  id: 'fluxo-operadores-logicos', trackId: 'fluxo',
+  title: 'Operadores lógicos',
+  description: 'and, or e not para combinar condições.',
+  difficulty: 2, xp: 15, estimatedMinutes: 7,
+  prerequisites: ['fluxo-if-elif-else'],
+  steps: [
+    { id: 's1', type: 'explanation',
+      content: 'Os operadores lógicos combinam expressões booleanas:\n- `and`: True se **ambas** forem True\n- `or`: True se **pelo menos uma** for True\n- `not`: inverte o valor booleano',
+      codeExample: 'idade = 25\nrenda = 5000\nidade > 18 and renda > 3000  # True\nidade < 18 or renda > 3000  # True\nnot (idade > 30)  # True' },
+    { id: 's2', type: 'explanation',
+      content: 'Python usa **avaliação de curto-circuito**: `and` para na primeira condição False; `or` para na primeira True. Isso é útil para evitar erros.',
+      codeExample: '# Se preco for None, não tenta comparar\npreco = None\npreco is not None and preco > 100  # False (para em preco is not None)' },
+    { id: 's3', type: 'predict-output',
+      prompt: 'Qual é o resultado?', code: 'True and False or True',
+      expectedOutput: 'True', hint: 'and tem precedência sobre or.' },
+    { id: 's4', type: 'quiz',
+      question: 'O que (5 > 3) and (10 < 5) retorna?',
+      options: ['True', 'False', 'Erro', 'None'], answer: 1,
+      explanation: '5 > 3 é True, mas 10 < 5 é False. True and False = False.' },
+    { id: 's5', type: 'fill-blank',
+      prompt: 'Complete para verificar se o cliente tem crédito aprovado (renda > 2000 E sem dívidas).',
+      codeTemplate: "renda = 5000\ntem_divida = False\naprovado = renda > 2000 ___ not tem_divida",
+      blanks: ['and'], hint: 'Ambas as condições devem ser verdadeiras.' },
+    { id: 's6', type: 'code',
+      prompt: 'Verifique se a empresa é elegível: receita > 100000 OU funcionarios > 50.',
+      starterCode: 'receita = 80000\nfuncionarios = 60\nelegivel = ',
+      tests: [{ expression: 'elegivel', expected: true }],
+      hint: 'Use or entre as duas condições.' },
+  ],
+};

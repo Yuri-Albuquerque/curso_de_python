@@ -12,6 +12,9 @@ kb/
 # --- Referências internas de geração/validação (contrato do agente) ---
 references/
 
+# --- Template/framework LearnHub ---
+learnhub-1.0.0/
+
 # --- Python / Jupyter (boas práticas) ---
 __pycache__/
 *.pyc
@@ -19,3 +22,9 @@ __pycache__/
 
 # --- macOS ---
 .DS_Store
+
+# --- web-course (Node.js) ---
+web-course/node_modules/
+web-course/dist/
+web-course/.vite/
+web-course/coverage/

@@ -1,0 +1,32 @@
+import type { Lesson } from '@/types';
+
+export const lesson: Lesson = {
+  id: 'dados-listas', trackId: 'estruturas-dados',
+  title: 'Listas',
+  description: 'Criação, indexação e métodos de lista.',
+  difficulty: 2, xp: 15, estimatedMinutes: 8,
+  prerequisites: ['fluxo-comprehensions'],
+  steps: [
+    { id: 's1', type: 'explanation',
+      content: 'Listas são sequências **mutáveis** e ordenadas. Crie com colchetes `[]`. Podem conter tipos mistos.',
+      codeExample: 'precos = [10.5, 20.0, 30.0]\nmista = [1, \'texto\', True, 3.14]\nvazia = []' },
+    { id: 's2', type: 'explanation',
+      content: 'Métodos úteis: `append()` (adiciona ao final), `insert()`, `remove()`, `pop()`, `sort()`, `len()`.',
+      codeExample: 'precos = [10, 20]\nprecos.append(30)      # [10, 20, 30]\nprecos.insert(0, 5)    # [5, 10, 20, 30]\nprecos.remove(20)      # [5, 10, 30]\nprecos.pop()           # [5, 10]\nlen(precos)            # 2' },
+    { id: 's3', type: 'predict-output',
+      prompt: 'Qual é o resultado?', code: 'a = [1, 2, 3]\na.append(4)\na.append(5)\nprint(len(a))',
+      expectedOutput: '5', hint: 'append adiciona elementos.' },
+    { id: 's4', type: 'quiz',
+      question: 'Qual método remove o último elemento de uma lista e o retorna?',
+      options: ['remove()', 'pop()', 'delete()', 'drop()'], answer: 1,
+      explanation: 'pop() remove e retorna o último elemento (ou o índice especificado).' },
+    { id: 's5', type: 'code',
+      prompt: 'Adicione o preço 45.50 à lista e calcule a média.',
+      starterCode: 'precos = [10.0, 20.0, 30.0]\nprecos.\nmedia = ',
+      tests: [{ expression: 'media', expected: 26.375 }],
+      hint: 'append(45.50), depois sum(precos) / len(precos)' },
+    { id: 's6', type: 'explanation',
+      content: 'Você pode ordenar com `sort()` (in-place) ou `sorted()` (retorna nova lista). `sort(reverse=True)` ordena decrescente.',
+      codeExample: 'precos = [30, 10, 50, 20]\nprecos.sort()          # [10, 20, 30, 50]\nsorted(precos, reverse=True)  # [50, 30, 20, 10]' },
+  ],
+};

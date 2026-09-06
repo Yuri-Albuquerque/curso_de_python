@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python para Economistas - Curso Interativo</title>
+    <script>
+      // SPA redirect: GitHub Pages serves 404.html for unknown paths.
+      // Redirect to index.html with the path preserved as a query param.
+      // See https://github.com/rafgraph/spa-github-pages
+      var segmentCount = 1; // /curso_de_python/ is one segment
+      var l = window.location;
+      segmentCount = 0; // we use base path, not pathname segments
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        '/curso_de_python/?p=' + l.pathname.split('/curso_de_python/')[1] +
+        (l.search ? '&' + l.search.slice(1) : '') +
+        (l.hash ? '#' + l.hash.slice(1) : '')
+      );
+    </script>
+  </head>
+  <body>
+    <p>Redirecionando...</p>
+  </body>
+</html>

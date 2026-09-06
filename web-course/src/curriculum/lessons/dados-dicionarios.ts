@@ -1,0 +1,32 @@
+import type { Lesson } from '@/types';
+
+export const lesson: Lesson = {
+  id: 'dados-dicionarios', trackId: 'estruturas-dados',
+  title: 'Dicionários',
+  description: 'Estruturas chave-valor para dados estruturados.',
+  difficulty: 2, xp: 20, estimatedMinutes: 10,
+  prerequisites: ['dados-tuplas'],
+  steps: [
+    { id: 's1', type: 'explanation',
+      content: 'Dicionários armazenam pares **chave: valor**. São mutáveis e muito eficientes para busca. Crie com `{}`.',
+      codeExample: "produto = {'ticker': 'PETR4', 'preco': 28.50, 'qty': 100}\nproduto['preco']     # 28.50\nproduto['qty']        # 100" },
+    { id: 's2', type: 'explanation',
+      content: 'Métodos: `keys()`, `values()`, `items()`, `get()`, `update()`. Use `in` para verificar se uma chave existe.',
+      codeExample: "produto = {'ticker': 'PETR4', 'preco': 28.50}\nproduto.keys()    # dict_keys(['ticker', 'preco'])\nproduto.values()  # dict_values(['PETR4', 28.50])\nproduto.get('qty', 0)  # 0 (valor padrão)\n'preco' in produto  # True" },
+    { id: 's3', type: 'predict-output',
+      prompt: 'Qual é o resultado?', code: "d = {'a': 1, 'b': 2}\nd['c'] = 3\nprint(len(d))",
+      expectedOutput: '3', hint: 'Adicionar uma nova chave aumenta o tamanho.' },
+    { id: 's4', type: 'quiz',
+      question: 'O que dict.get("chave", 0) faz se a chave não existir?',
+      options: ['Levanta KeyError', 'Retorna 0', 'Retorna None', 'Adiciona a chave'],
+      answer: 1, explanation: 'get() retorna o valor padrão (segundo argumento) se a chave não existir.' },
+    { id: 's5', type: 'code',
+      prompt: 'Crie um dicionário com dados de uma empresa e calcule o valor de mercado (preco * qty).',
+      starterCode: "empresa = {'ticker': 'VALE3', 'preco': 60.0, 'qty': 1000}\nvalor_mercado = ",
+      tests: [{ expression: 'valor_mercado', expected: 60000.0 }],
+      hint: 'empresa[\'preco\'] * empresa[\'qty\']' },
+    { id: 's6', type: 'explanation',
+      content: 'Dicionários são ideais para representar registros econômicos. Em pandas, cada dicionário pode virar uma linha de DataFrame.',
+      codeExample: "empresas = [\n    {'ticker': 'PETR4', 'preco': 28.5},\n    {'ticker': 'VALE3', 'preco': 60.0},\n    {'ticker': 'ITUB4', 'preco': 32.0},\n]\n# Facilmente convertido para DataFrame" },
+  ],
+};

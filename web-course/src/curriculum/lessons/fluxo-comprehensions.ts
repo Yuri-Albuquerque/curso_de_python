@@ -1,0 +1,33 @@
+import type { Lesson } from '@/types';
+
+export const lesson: Lesson = {
+  id: 'fluxo-comprehensions', trackId: 'fluxo',
+  title: 'Comprehensions',
+  description: 'List comprehensions: criar listas de forma concisa.',
+  difficulty: 3, xp: 20, estimatedMinutes: 8,
+  prerequisites: ['fluxo-break-continue-range'],
+  steps: [
+    { id: 's1', type: 'explanation',
+      content: '**List comprehension** é uma forma concisa de criar listas. Sintaxe: `[expressão for item in sequência if condição]`.',
+      codeExample: '# Sem comprehension\nquadrados = []\nfor x in range(5):\n    quadrados.append(x ** 2)\n\n# Com comprehension\nquadrados = [x ** 2 for x in range(5)]  # [0, 1, 4, 9, 16]' },
+    { id: 's2', type: 'explanation',
+      content: 'Você pode adicionar uma condição `if` para filtrar elementos.',
+      codeExample: 'precos = [10, 50, 20, 80, 30]\ncaros = [p for p in precos if p > 40]  # [50, 80]\n\n# Com transformação\ndobro = [p * 2 for p in precos]  # [20, 100, 40, 160, 60]' },
+    { id: 's3', type: 'predict-output',
+      prompt: 'Qual é o resultado?', code: '[x * 10 for x in range(3)]',
+      expectedOutput: '[0, 10, 20]', hint: 'Cada elemento de range(3) multiplicado por 10.' },
+    { id: 's4', type: 'quiz',
+      question: 'O que [x for x in range(10) if x % 2 == 0] produz?',
+      options: ['[1, 3, 5, 7, 9]', '[0, 2, 4, 6, 8]', '[2, 4, 6, 8, 10]', '[0, 2, 4, 6]'], answer: 1,
+      explanation: 'Filtra apenas os pares de 0 a 9.' },
+    { id: 's5', type: 'fill-blank',
+      prompt: 'Complete a comprehension para calcular o dobro dos preços acima de 30.',
+      codeTemplate: 'precos = [10, 50, 20, 80, 30]\nresultado = [p * 2 ___ p ___ precos ___ p > 30]',
+      blanks: ['for', 'in', 'if'], hint: 'for ... in ... if ...' },
+    { id: 's6', type: 'code',
+      prompt: 'Use list comprehension para criar uma lista com o lucro de cada produto (receita - custo).',
+      starterCode: 'receitas = [100, 200, 150, 300]\ncustos = [60, 180, 120, 250]\nlucros = ',
+      tests: [{ expression: 'lucros', expected: [40, 20, 30, 50] }],
+      hint: 'Use zip(): [r - c for r, c in zip(receitas, custos)]' },
+  ],
+};
