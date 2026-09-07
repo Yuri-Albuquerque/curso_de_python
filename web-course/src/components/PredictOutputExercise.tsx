@@ -13,9 +13,26 @@ export function PredictOutputExercise({ step, onSolved }: PredictOutputExerciseP
   const [answer, setAnswer] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const normalize = (s: string) => s.trim().replace(/\s+/g, ' ');
-  const correct =
-    normalize(answer) === normalize(step.expectedOutput);
+  // Normaliza a resposta antes de comparar. Duas armadilhas reais:
+  //  1. O código quase sempre termina numa expressão solta (sem `print`),
+  //     e no Jupyter de verdade isso ecoa ENTRE ASPAS (repr do Python) —
+  //     é natural o aluno digitar 'VALE3: R$ 60.00' ou "VALE3: R$ 60.00"
+  //     mesmo quando `expectedOutput` guarda o texto sem aspas.
+  //  2. Teclados móveis (iOS/Android) autocorrigem aspas retas para
+  //     curvas (" " ' ') por padrão — sem isso, ninguém digitando no
+  //     celular acerta um exercício com aspas.
+  // Por isso removemos UM par de aspas envolvente, de qualquer tipo,
+  // antes de comparar. Nenhuma das 31 respostas do curso espera aspas
+  // de propósito, então isso nunca torna uma resposta errada em certa.
+  const despar = (s: string) => {
+    const t = s.trim().replace(/\s+/g, ' ');
+    const par: Record<string, string> = { '"': '"', "'": "'", '“': '”', '‘': '’' };
+    if (t.length >= 2 && par[t[0]] === t[t.length - 1]) {
+      return t.slice(1, -1).trim();
+    }
+    return t;
+  };
+  const correct = despar(answer) === despar(step.expectedOutput);
 
   function handleSubmit() {
     if (!answer.trim()) return;
@@ -49,6 +66,13 @@ export function PredictOutputExercise({ step, onSolved }: PredictOutputExerciseP
           onChange={(e) => setAnswer(e.target.value)}
           disabled={submitted}
           placeholder="Digite a saída esperada..."
+          // A resposta é texto de código (Python), não prosa: autocorreção
+          // de teclado móvel troca aspas retas por curvas e maiuscula a
+          // primeira letra — os dois quebram uma comparação exata.
+          autoCorrect="off"
+          autoCapitalize="off"
+          autoComplete="off"
+          spellCheck={false}
         />
       </div>
 

@@ -56,6 +56,12 @@ export function FillBlankExercise({ step, onSolved }: FillBlankExerciseProps) {
                 }}
                 disabled={submitted}
                 placeholder="..."
+                // Resposta é código Python: autocorreção do teclado móvel
+                // (aspas curvas etc.) quebraria a comparação exata.
+                autoCorrect="off"
+                autoCapitalize="off"
+                autoComplete="off"
+                spellCheck={false}
                 style={{
                   width: `${Math.max(step.blanks[i].length + 2, 6)}ch`,
                 }}
