@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -93,9 +93,31 @@ const router = createBrowserRouter(
 );
 
 export function App() {
+  // As 66 lições vêm num chunk carregado sob demanda. As páginas leem o
+  // currículo de forma SÍNCRONA (getLessonById/getLessonsForTrack), então o
+  // router só pode montar depois que esse chunk chegar — caso contrário a
+  // primeira renderização não acha lição nenhuma e a tela fica em
+  // "Lição não encontrada" / "Lições em breve" para sempre.
+  const [licoesProntas, setLicoesProntas] = useState(false);
+
   useEffect(() => {
-    void loadLessons();
+    let cancelado = false;
+    void loadLessons().finally(() => {
+      if (!cancelado) setLicoesProntas(true);
+    });
+    return () => {
+      cancelado = true;
+    };
   }, []);
+
+  if (!licoesProntas) {
+    return (
+      <div className="app-loading" role="status" aria-live="polite">
+        <div className="app-loading-spinner" aria-hidden="true" />
+        <p>Carregando o curso...</p>
+      </div>
+    );
+  }
 
   return <RouterProvider router={router} />;
 }

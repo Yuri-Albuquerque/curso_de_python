@@ -15,6 +15,12 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
+  // O worker do Pyodide importa a distribuição ESM do CDN em tempo de
+  // execução (`import(...pyodide.mjs)`), o que exige worker em formato ES
+  // tanto no dev quanto no build.
+  worker: {
+    format: 'es',
+  },
   build: {
     outDir: 'dist',
     emptyOutDir: true,

@@ -39,7 +39,7 @@ em diante, a repetição passa a ser vetorizada (NumPy/pandas), e você entender
 O `for` percorre os elementos de uma coleção (lista, tupla, `dict`, string…) um a um
 (McKinney, Apêndice — *for loops*):
 
-```python
+```text
 for variavel in colecao:
     # corpo: roda uma vez POR ELEMENTO
 ```
@@ -93,7 +93,7 @@ Quanto tempo para **dobrar**? Resolver $S_0(1+i_m)^T = 2S_0$ dá $T = \ln 2 / \l
 O `for` repete sobre uma coleção finita. O `while` repete **enquanto** uma condição for
 verdadeira — o loop do economista modelador (McKinney, Apêndice — *while loops*):
 
-```python
+```text
 while condicao:
     # corpo — DEVE, em algum momento, tornar condicao falsa
 ```
@@ -200,11 +200,13 @@ Mesma sintaxe, chaves próprias. O dict comprehension constrói **tabelas de map
 a forma que a Aula 03 prometeu para substituir cadeias de `match` quando a tabela cresce:
 
 ```python
+i_m = 0.0109   # taxa mensal equivalente à Selic de 13,9% a.a. (set/2026)
+
 # juros acumulados por prazo de investimento
 juros_acumulados = {n: (1 + i_m) ** n - 1 for n in [1, 3, 6, 12]}
 
 # mapa seção CNAE -> grande setor (a promessa da Aula 03 cumprida)
-cnae_mapa = {"A": "Agropecuária", "F": "Construção", "G": "Comércio", ...}
+cnae_mapa = {"A": "Agropecuária", "F": "Construção", "G": "Comércio", "J": "Informação"}
 cnae_mapa.get("X", "Seção inválida")   # .get com default: dado sujo não quebra o código
 ```
 

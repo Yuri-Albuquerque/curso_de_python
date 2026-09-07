@@ -28,3 +28,5 @@ web-course/node_modules/
 web-course/dist/
 web-course/.vite/
 web-course/coverage/
+# Arquivo auxiliar gerado pela Aula 01 (celula com %%writefile)
+semana_01/util_aula01.py

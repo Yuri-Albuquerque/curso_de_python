@@ -82,7 +82,7 @@ As pegadinhas da aula:
   só existe para `loc` — `df_num.iloc[12]` levanta `IndexError` (só há 4 linhas,
   posições 0–3);
 - **Fatia inclusiva**: `df.loc[10:12]` traz 3 linhas (10, 11, **12**);
-  `df.iloc[0:2]` traz 2 (0, 1). Mesmo `:` , filosofias diferentes;
+  `df.iloc[0:2]` traz 2 (0, 1). Mesmo `:`, filosofias diferentes;
 - **`KeyError` no loc**: o rótulo não existe (erro de digitação, ou a coluna virou índice);
 - **Atalho honesto**: `df["col"]` para coluna única, `df[["a", "b"]]` para várias.
 

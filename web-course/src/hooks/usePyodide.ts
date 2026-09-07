@@ -29,6 +29,11 @@ export function usePyodide(): UsePyodideReturn {
   const pendingRejecters = useRef<Map<number, (e: Error) => void>>(new Map());
   const msgIdRef = useRef(0);
 
+  // Cria (ou recria) o worker. Guardado em ref para que um laço infinito no
+  // código do aluno possa ser abortado com terminate() e o ambiente volte a
+  // funcionar sem exigir recarregar a página.
+  const initRef = useRef<(() => Promise<void>) | null>(null);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -85,6 +90,7 @@ export function usePyodide(): UsePyodideReturn {
       }
     }
 
+    initRef.current = init;
     init();
 
     return () => {
@@ -133,16 +139,28 @@ export function usePyodide(): UsePyodideReturn {
           tests: tests ?? [],
         });
 
-        // Timeout after 15 seconds
+        // Timeout de 15 s. Se estourar, o worker provavelmente está preso num
+        // laço infinito: encerramos e recriamos, senão TODAS as execuções
+        // seguintes ficariam travadas até recarregar a página.
         setTimeout(() => {
           if (pendingResolvers.current.has(msgId)) {
             pendingResolvers.current.delete(msgId);
             pendingRejecters.current.delete(msgId);
             setIsRunning(false);
+
+            workerRef.current?.terminate();
+            workerRef.current = null;
+            pendingResolvers.current.clear();
+            pendingRejecters.current.clear();
+            setStatus('idle');
+            void initRef.current?.();
+
             resolve({
               stdout: '',
               stderr: '',
-              error: 'Tempo limite excedido (15s).',
+              error:
+                'Tempo limite excedido (15 s). Verifique se há um laço que nunca termina ' +
+                '— por exemplo, um `while` cuja condição nunca fica falsa.',
               result: null,
               testsPassed: false,
               testResults: [],

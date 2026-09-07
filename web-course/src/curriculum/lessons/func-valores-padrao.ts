@@ -11,7 +11,7 @@ export const lesson: Lesson = {
     { id: 's3', type: 'predict-output', prompt: 'O que retorna?', code: 'def f(x, y=10):\n    return x + y\nf(5)', expectedOutput: '15', hint: 'y usa o default 10.' },
     { id: 's4', type: 'fill-blank', prompt: 'Complete a função com taxa padrão de 5%.',
       codeTemplate: 'def calcular_juros(capital, taxa___):\n    return capital * taxa', blanks: ['=0.05'], hint: 'Use =0.05 após o parâmetro.' },
-    { id: 's5', type: 'code', prompt: 'Defina uma função com parametro default: def margem(lucro, receita=1000): retorna lucro/receita * 100.',
+    { id: 's5', type: 'code', prompt: 'Defina uma função com parâmetro default: def margem(lucro, receita=1000): retorna lucro/receita * 100.',
       starterCode: 'def margem(lucro, receita=1000):\n    ', tests: [{ expression: 'margem(200)', expected: 20.0 }, { expression: 'margem(200, 2000)', expected: 10.0 }], hint: 'return lucro / receita * 100' },
   ],
 };

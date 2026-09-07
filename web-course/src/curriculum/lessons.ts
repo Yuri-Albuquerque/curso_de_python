@@ -25,29 +25,44 @@ import type { Lesson } from '@/types';
 
 let _allLessons: Lesson[] = [];
 let _loaded = false;
+let _emAndamento: Promise<void> | null = null;
 
 /**
- * Load lessons from the curriculum barrel.
- * Called lazily by the getter functions so the import only happens
- * when lessons are actually needed.
+ * Carrega as lições do barrel do currículo.
+ *
+ * Cuidados que este código precisa ter (já causaram bug em produção):
+ *  - `_loaded` só vira `true` DEPOIS do await. Marcá-lo antes fazia
+ *    chamadas concorrentes acharem que já estava carregado e lerem uma
+ *    lista vazia ("Lição não encontrada").
+ *  - a promessa em andamento é compartilhada, para que N chamadas
+ *    simultâneas resultem em UM único download do chunk.
  */
 async function ensureLoaded(): Promise<void> {
   if (_loaded) return;
-  _loaded = true;
-  try {
-    const mod = await import('@/curriculum/lessons/index');
-    if (mod.allLessons) {
-      _allLessons = mod.allLessons;
-    } else {
-      const maybeDefault = (mod as { default?: unknown }).default;
-      if (Array.isArray(maybeDefault)) {
-        _allLessons = maybeDefault as Lesson[];
+  if (_emAndamento) return _emAndamento;
+
+  _emAndamento = (async () => {
+    try {
+      const mod = await import('@/curriculum/lessons/index');
+      if (mod.allLessons) {
+        _allLessons = mod.allLessons;
+      } else {
+        const maybeDefault = (mod as { default?: unknown }).default;
+        if (Array.isArray(maybeDefault)) {
+          _allLessons = maybeDefault as Lesson[];
+        }
       }
+      _loaded = true;
+    } catch {
+      // Barrel indisponível — a UI mostra estado de placeholder.
+      _allLessons = [];
+      _loaded = false;
+    } finally {
+      _emAndamento = null;
     }
-  } catch {
-    // Lessons barrel not yet created — UI will show placeholder states.
-    _allLessons = [];
-  }
+  })();
+
+  return _emAndamento;
 }
 
 /** Synchronous access — returns currently loaded lessons. */
