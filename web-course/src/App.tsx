@@ -9,6 +9,7 @@ import { TrackDetailPage } from '@/pages/TrackDetailPage';
 import { LessonPage } from '@/pages/LessonPage';
 import { ProgressPage } from '@/pages/ProgressPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
+import { LoginPage } from '@/pages/LoginPage';
 
 const basename = '/curso_de_python';
 
@@ -21,6 +22,18 @@ const router = createBrowserRouter(
           <Navbar />
           <main className="app-main">
             <HomePage />
+          </main>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: '/login',
+      element: (
+        <div className="app-layout">
+          <Navbar />
+          <main className="app-main">
+            <LoginPage />
           </main>
           <Footer />
         </div>

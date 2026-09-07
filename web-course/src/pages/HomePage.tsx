@@ -16,9 +16,11 @@ import {
 import { TrackCard } from '@/components/TrackCard';
 import { tracks } from '@/curriculum/tracks';
 import { useProgress } from '@/hooks/useProgress';
+import { useAuth } from '@/hooks/useAuth';
 
 export function HomePage() {
   const { progress } = useProgress();
+  const { isLoggedIn } = useAuth();
   const totalLessons = tracks.reduce((sum, t) => sum + t.lessons.length, 0);
 
   const features = [
@@ -76,7 +78,7 @@ export function HomePage() {
               no navegador e ganhe XP a cada lição.
             </p>
             <div className="hero-cta">
-              <Link to="/trilhas" className="btn btn-primary btn-lg">
+              <Link to={isLoggedIn ? '/trilhas' : '/login'} className="btn btn-primary btn-lg">
                 <Play size={20} /> Começar agora
               </Link>
               <Link to="/progresso" className="btn btn-outline btn-lg">
@@ -105,6 +107,31 @@ export function HomePage() {
                 <span className="streak-counter"><span className="text-danger">🔥</span> 7 dias</span>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Video – Conheça o curso */}
+      <section className="section-sm">
+        <div className="container">
+          <div className="text-center mb-6">
+            <span className="badge badge-accent mb-3"><Play size={14} /> Conheça o curso</span>
+            <h2>Veja o PythonEconomia em ação</h2>
+            <p className="text-muted mt-2" style={{ maxWidth: '36rem', margin: '0 auto' }}>
+              Assista ao vídeo introdutório e descubra como a plataforma funciona — interativo,
+              gamificado e 100% no navegador.
+            </p>
+          </div>
+          <div className="video-card card" style={{ boxShadow: 'var(--shadow-lg)', maxWidth: 'var(--max-w-narrow)', margin: '0 auto', padding: 0, overflow: 'hidden' }}>
+            <video
+              className="course-video"
+              controls
+              preload="metadata"
+              playsInline
+            >
+              <source src="assets/oikos_python.mp4" type="video/mp4" />
+              Seu navegador não suporta o elemento de vídeo.
+            </video>
           </div>
         </div>
       </section>

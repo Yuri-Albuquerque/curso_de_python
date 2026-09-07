@@ -350,6 +350,26 @@ p { color: var(--text); }
   color: var(--text-muted);
 }
 
+.badge-review {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--r-pill);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  background: rgba(255, 180, 0, 0.15);
+  color: var(--gold-dim);
+  border: 1.5px solid rgba(255, 180, 0, 0.4);
+  white-space: nowrap;
+}
+
+.badge-review svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
 /* ---------- Icon Shape (circle with bg-opacity-10) ---------- */
 .icon-shape {
   display: inline-flex;
@@ -1858,4 +1878,209 @@ p { color: var(--text); }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-light);
+}
+
+/* ---------- Course Video (responsive) ---------- */
+.video-card {
+  border-radius: var(--r-2xl);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.course-video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-2xl);
+  background: var(--bg-dark);
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .course-video {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* ============================================================
+   Login Page
+   ============================================================ */
+.login-page {
+  min-height: calc(100vh - var(--navbar-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 26rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+}
+
+.login-card-body {
+  padding: 2.5rem 2rem;
+}
+
+.login-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.login-subtitle {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 2px solid var(--border-strong);
+  border-radius: var(--r-lg);
+  transition: border-color var(--t-base), box-shadow var(--t-base);
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--teal-dark);
+  box-shadow: 0 0 0 3px rgba(15, 76, 92, 0.12);
+}
+
+.form-input::placeholder {
+  color: var(--text-light);
+}
+
+.form-hint {
+  font-size: 0.78rem;
+  color: var(--text-light);
+}
+
+.login-error {
+  background: rgba(230, 57, 70, 0.08);
+  color: var(--danger);
+  border: 1px solid rgba(230, 57, 70, 0.2);
+  border-radius: var(--r-md);
+  padding: 0.65rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.login-submit {
+  margin-top: 0.5rem;
+}
+
+.login-switch {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.login-switch p {
+  margin: 0;
+}
+
+.login-switch-btn {
+  background: none;
+  border: none;
+  color: var(--teal-dark);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.login-switch-btn:hover {
+  color: var(--teal);
+}
+
+.login-disclaimer {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   Navbar — User & Logout
+   ============================================================ */
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-user-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--teal-dark);
+  background: rgba(15, 76, 92, 0.08);
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbar-logout {
+  white-space: nowrap;
+}
+
+.navbar-mobile-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--teal-dark);
+}
+
+.navbar-mobile-logout {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .navbar-user-name {
+    display: none;
+  }
 }

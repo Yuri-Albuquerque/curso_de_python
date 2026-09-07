@@ -6,10 +6,13 @@ import type { ProgressState, Achievement } from '@/types';
  * The real implementation lives in src/services/progressStorage/.
  * This hook delegates to that service if available, otherwise uses
  * a localStorage fallback so the UI works even before the service is wired up.
+ *
+ * Progress is keyed by user login so different users on the same browser
+ * have separate progress. When no user is logged in, an "anon" key is used.
  */
 
-const STORAGE_KEY = 'python-economia-progress';
-const ACHIEVEMENTS_KEY = 'python-economia-achievements';
+const AUTH_KEY = 'python-economia-auth';
+const ACHIEVEMENTS_KEY_PREFIX = 'python-economia-achievements';
 
 const defaultProgress: ProgressState = {
   completedLessons: [],
@@ -19,6 +22,31 @@ const defaultProgress: ProgressState = {
   achievements: [],
   lessonProgress: {},
 };
+
+/** Retorna o login do usuário atualmente autenticado, ou 'anon'. */
+function getCurrentLogin(): string {
+  try {
+    const raw = localStorage.getItem(AUTH_KEY);
+    if (!raw) return 'anon';
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed.login === 'string' && parsed.login) {
+      return parsed.login;
+    }
+    return 'anon';
+  } catch {
+    return 'anon';
+  }
+}
+
+/** Constrói a storage key de progresso para um dado login. */
+function progressKeyFor(login: string): string {
+  return `python-economia-progress-${login}`;
+}
+
+/** Constrói a storage key de conquistas para um dado login. */
+function achievementsKeyFor(login: string): string {
+  return `${ACHIEVEMENTS_KEY_PREFIX}-${login}`;
+}
 
 function todayISO(): string {
   return new Date().toISOString().split('T')[0];
@@ -31,9 +59,9 @@ function daysBetween(a: string, b: string): number {
   return Math.round((d2.getTime() - d1.getTime()) / 86_400_000);
 }
 
-function loadProgress(): ProgressState {
+function loadProgress(storageKey: string): ProgressState {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(storageKey);
     if (!raw) return { ...defaultProgress };
     const parsed = JSON.parse(raw) as ProgressState;
     return { ...defaultProgress, ...parsed };
@@ -42,9 +70,9 @@ function loadProgress(): ProgressState {
   }
 }
 
-function saveProgress(p: ProgressState): void {
+function saveProgress(storageKey: string, p: ProgressState): void {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+    localStorage.setItem(storageKey, JSON.stringify(p));
   } catch {
     /* ignore quota errors */
   }
@@ -62,12 +90,16 @@ export interface UseProgressReturn {
 }
 
 export function useProgress(): UseProgressReturn {
-  const [progress, setProgress] = useState<ProgressState>(() => loadProgress());
+  const [currentLogin] = useState<string>(() => getCurrentLogin());
+  const storageKey = progressKeyFor(currentLogin);
+  const achievementsKey = achievementsKeyFor(currentLogin);
+
+  const [progress, setProgress] = useState<ProgressState>(() => loadProgress(storageKey));
 
   // Persist on every change
   useEffect(() => {
-    saveProgress(progress);
-  }, [progress]);
+    saveProgress(storageKey, progress);
+  }, [progress, storageKey]);
 
   const isLessonCompleted = useCallback(
     (lessonId: string) => progress.completedLessons.includes(lessonId),
@@ -149,12 +181,12 @@ export function useProgress(): UseProgressReturn {
   const resetProgress = useCallback(() => {
     setProgress({ ...defaultProgress });
     try {
-      localStorage.removeItem(STORAGE_KEY);
-      localStorage.removeItem(ACHIEVEMENTS_KEY);
+      localStorage.removeItem(storageKey);
+      localStorage.removeItem(achievementsKey);
     } catch {
       /* ignore */
     }
-  }, []);
+  }, [storageKey, achievementsKey]);
 
   const checkAchievements = useCallback(
     (achievements: Achievement[]): string[] => {
